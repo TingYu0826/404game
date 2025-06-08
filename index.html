@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - 拼多多免運遊戲</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="logo">🛒 拼多多</div>
+
+<h1 class="title">404</h1>
+<p class="subtitle">正在努力<br>把網頁加回購物車中...</p>
+
+<div class="game-area" id="gameArea">
+    <!-- 商品會在這裡亂飄 -->
+</div>
+
+<div class="cart-area">
+    <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" class="cart" />
+    <p id="total">目前金額：$0</p>
+</div>
+
+<div class="start-menu">
+    <button onclick="startGame('easy')">簡單</button>
+    <button onclick="startGame('medium')">中等</button>
+    <button onclick="startGame('hard')">困難</button>
+</div>
+
+<div class="win-screen" id="winScreen" style="display:none;">
+    <h2>🎉 你已成功免運！</h2>
+    <p>回首頁繼續血拚吧～</p>
+    <button onclick="location.href='index.html'">👉 回首頁</button>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>

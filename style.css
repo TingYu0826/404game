@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', '微軟正黑體', sans-serif;
+    background-color: #fdf8ed;
+    text-align: center;
+    overflow: hidden;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.title {
+    font-size: 64px;
+    margin-top: 80px;
+    margin-bottom: 0;
+}
+
+.subtitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.cart-area {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.cart {
+    width: 80px;
+}
+
+#total {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.start-menu button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.item {
+    position: absolute;
+    cursor: pointer;
+    font-size: 24px;
+    transition: transform 0.3s;
+}
+
+.item:hover {
+    transform: scale(1.2);
+}
+
+.win-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.win-screen button {
+    margin-top: 20px;
+    font-size: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
