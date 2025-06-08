@@ -29,6 +29,12 @@ const products = [
     { icon: "🥨", price: 3 },
 ];
 
+function isColliding(el1, el2) {
+    const r1 = el1.getBoundingClientRect();
+    const r2 = el2.getBoundingClientRect();
+    return !(r1.right < r2.left || r1.left > r2.right || r1.bottom < r2.top || r1.top > r2.bottom);
+}
+
 function startGame(difficulty) {
     startMenu.style.display = "none"; // 開始遊戲時隱藏按鈕
     currentDifficulty = difficulty;
@@ -130,26 +136,53 @@ function moveItem(item) {
             let top = item.el.offsetTop + item.dy;
             let left = item.el.offsetLeft + item.dx;
 
-        // 上下邊界
-        if (top < 0) {
-            top = 0;
-            item.dy *= -1;
-        } else if (top > window.innerHeight - 40) {
-            top = window.innerHeight - 40;
-            item.dy *= -1;
-        }
+            // 上下邊界
+            if (top < 0) {
+                top = 0;
+                item.dy *= -1;
+            } else if (top > window.innerHeight - 40) {
+                top = window.innerHeight - 40;
+                item.dy *= -1;
+            }
 
-        // 左右邊界
-        if (left < 0) {
-            left = 0;
-            item.dx *= -1;
-        } else if (left > window.innerWidth - 100) {
-            left = window.innerWidth - 100;
-            item.dx *= -1;
-        }
+            // 左右邊界
+            if (left < 0) {
+                left = 0;
+                item.dx *= -1;
+            } else if (left > window.innerWidth - 100) {
+                left = window.innerWidth - 100;
+                item.dx *= -1;
+            }
 
-        item.el.style.top = `${top}px`;
-        item.el.style.left = `${left}px`;
+            item.el.style.top = `${top}px`;
+            item.el.style.left = `${left}px`;
+
+            // 商品間碰撞檢查
+            for (const other of items) {
+                if (other !== item && !other.dragging?.() && !item.dragging?.()) {
+                    if (isColliding(item.el, other.el)) {
+                        // 交換速度方向
+                        [item.dx, other.dx] = [other.dx, item.dx];
+                        [item.dy, other.dy] = [other.dy, item.dy];
+
+                        // 推開重疊（加在這裡）
+                        const r1 = item.el.getBoundingClientRect();
+                        const r2 = other.el.getBoundingClientRect();
+                        const overlapX = Math.min(r1.right, r2.right) - Math.max(r1.left, r2.left);
+                        const overlapY = Math.min(r1.bottom, r2.bottom) - Math.max(r1.top, r2.top);
+
+                        if (overlapX > 0 && overlapY > 0) {
+                            if (overlapX < overlapY) {
+                                item.el.style.left = `${item.el.offsetLeft + (item.dx > 0 ? overlapX : -overlapX)}px`;
+                                other.el.style.left = `${other.el.offsetLeft + (other.dx > 0 ? -overlapX : overlapX)}px`;
+                            } else {
+                                item.el.style.top = `${item.el.offsetTop + (item.dy > 0 ? overlapY : -overlapY)}px`;
+                                other.el.style.top = `${other.el.offsetTop + (other.dy > 0 ? -overlapY : overlapY)}px`;
+                            }
+                        }
+                    }
+                }
+            }
         }
         requestAnimationFrame(move);
     };
