@@ -20,11 +20,12 @@ body::before {
 }
 
 button {
-    background-color: #ff0222; /* 你想要的底色，例如拼多多紅 */
-    color: #fbfafa;               /* 文字顏色 */
-    border: none;
+    background-color: #fff;
+    color: #0b0000;
+    border: 2px solid #000;
     border-radius: 8px;
     transition: background 0.2s;
+    isolation: isolate;
 }
 
 button:hover {
@@ -45,18 +46,6 @@ body {
     left: 20px;
     font-size: 24px;
     font-weight: bold;
-}
-
-.title {
-    font-size: 64px;
-    margin-top: 80px;
-    margin-bottom: 0;
-}
-
-.subtitle {
-    font-size: 24px;
-    margin-bottom: 20px;
-    line-height: 1.6;
 }
 
 .cart-area {
@@ -141,16 +130,36 @@ body {
 }
 
 .title {
-    font-size: 64px;
+    /*font-size: 80px;*/
     margin-top: 140px; /* 原本是80px，往下移 */
-    margin-bottom: 0;
+    margin-bottom: 10px;
+
+    /*font-size: 100px;*/
+    /*font-weight: 900;*/
+    /*color: #000;*/
+    text-shadow: 2px 2px #f54344; /* 拚多多紅陰影 */
+    display: inline-block;
+    /*background-color: rgba(245, 67, 68, 0.25);*/
+    background: linear-gradient(
+            rgba(245, 67, 68, 0.3),
+            rgba(245, 67, 68, 0.2)
+    );
+    color: #111;
+    font-size: 88px;
+    font-weight: 700;
+    padding: 20px 40px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    letter-spacing: 4px;
 }
 
 .subtitle {
     font-size: 24px;
-    margin-top: 30px;   /* 新增，讓副標題與標題有距離 */
-    margin-bottom: 20px;
-    line-height: 1.6;
+    margin-top: 10px;   /* 新增，讓副標題與標題有距離 */
+    margin-bottom: 10px;
+    line-height: 1.4;
+    color: #603811; /* 可以調整副標題顏色 */
+
 }
 
 .start-menu {
@@ -161,7 +170,7 @@ body {
     position: absolute;
     left: 0;
     right: 0;
-    top: 340px; /* 可微調，讓它在副標題和購物車正中間 */
+    top: 400px; /* 可微調，讓它在副標題和購物車正中間 */
     font-size: 64px;
     color: red;
     font-weight: bold;
