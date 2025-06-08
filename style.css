@@ -6,10 +6,35 @@
     margin: 10px;
 }
 
+body::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("assets/拚多多.png");
+    background-repeat: repeat;
+    background-size: 100px 100px;  /* ✅ 原本 40px → 調成 100px 更大更稀疏 */
+    opacity: 0.1;  /* 可以調整 0.08 ~ 0.15 看你想多明顯 */
+    pointer-events: none;
+    z-index: 0;
+    mix-blend-mode: multiply;
+}
+
+button {
+    background-color: #ff0222; /* 你想要的底色，例如拼多多紅 */
+    color: #fbfafa;               /* 文字顏色 */
+    border: none;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background-color: #d92a3a; /* 滑鼠移上去的顏色 */
+}
+
 body {
     margin: 0;
     font-family: 'Segoe UI', '微軟正黑體', sans-serif;
-    background-color: #fdf8ed;
+    background-color: #faf8f4;
     text-align: center;
     overflow: hidden;
 }
