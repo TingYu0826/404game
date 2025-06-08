@@ -36,8 +36,8 @@ function startGame(difficulty) {
     // 控制飄浮速度（越快越難）
     speed = {
         easy: 1,
-        medium: 2,
-        hard: 4,
+        medium: 3,
+        hard: 8,
     }[difficulty];
 
     // 顯示計時器
@@ -64,6 +64,7 @@ function startGame(difficulty) {
     }
 }
 
+// 在 createItem() 內加拖曳事件
 function createItem() {
     const product = products[Math.floor(Math.random() * products.length)];
     const el = document.createElement("div");
@@ -72,29 +73,59 @@ function createItem() {
     el.style.top = `${Math.random() * 80 + 10}%`;
     el.style.left = `${Math.random() * 80 + 10}%`;
 
-    el.onclick = () => {
-        total += product.price;
-        updateTotal();
-        el.remove();
-        checkWin();
+    let dragging = false;
+    let offsetX = 0, offsetY = 0;
+
+    el.onmousedown = (e) => {
+        dragging = true;
+        offsetX = e.offsetX;
+        offsetY = e.offsetY;
+        el.style.zIndex = 1000;
+        document.body.style.cursor = "grabbing";
     };
+
+    document.addEventListener("mousemove", (e) => {
+        if (dragging) {
+            el.style.top = `${e.clientY - offsetY}px`;
+            el.style.left = `${e.clientX - offsetX}px`;
+        }
+    });
+
+    document.addEventListener("mouseup", (e) => {
+        if (dragging) {
+            dragging = false;
+            el.style.zIndex = "";
+            document.body.style.cursor = "";
+            // 判斷是否進入購物車
+            const cart = document.querySelector(".cart");
+            const cartRect = cart.getBoundingClientRect();
+            const elRect = el.getBoundingClientRect();
+            if (
+                elRect.right > cartRect.left &&
+                elRect.left < cartRect.right &&
+                elRect.bottom > cartRect.top &&
+                elRect.top < cartRect.bottom
+            ) {
+                total += product.price;
+                updateTotal();
+                el.remove();
+                checkWin();
+            }
+        }
+    });
 
     // 固定速度，隨機方向
     const dx = Math.random() < 0.5 ? speed : -speed;
     const dy = Math.random() < 0.5 ? speed : -speed;
 
-    return { el, dx, dy };
-}
-
-function randSpeed() {
-    const s = Math.random() * speed + 0.5;
-    return Math.random() < 0.5 ? s : -s;
+    return { el, dx, dy, dragging: () => dragging };
 }
 
 function moveItem(item) {
     const move = () => {
-        let top = item.el.offsetTop + item.dy;
-        let left = item.el.offsetLeft + item.dx;
+        if (!item.dragging || !item.dragging()) {
+            let top = item.el.offsetTop + item.dy;
+            let left = item.el.offsetLeft + item.dx;
 
         // 上下邊界
         if (top < 0) {
@@ -116,7 +147,7 @@ function moveItem(item) {
 
         item.el.style.top = `${top}px`;
         item.el.style.left = `${left}px`;
-
+        }
         requestAnimationFrame(move);
     };
     move();
