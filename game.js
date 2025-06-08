@@ -164,6 +164,7 @@ function checkWin() {
 }
 
 function showFailScreen() {
+    document.getElementById("failTotal").innerText = `總共放了${total}元的商品進購物車`;
     failScreen.style.display = "flex";
     startMenu.style.display = "block";
     gameArea.innerHTML = "";
