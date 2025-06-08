@@ -62,6 +62,10 @@ body {
     cursor: pointer;
     font-size: 24px;
     /*transition: transform 0.3s;*/
+    padding: 16px 32px; /* 點擊區域更大 */
+    min-width: 80px;
+    min-height: 50px;
+    box-sizing: border-box;
 }
 
 .item:hover {

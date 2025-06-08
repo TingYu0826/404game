@@ -1,3 +1,4 @@
+const startMenu = document.querySelector('.start-menu');
 const gameArea = document.getElementById("gameArea");
 const totalDisplay = document.getElementById("total");
 const winScreen = document.getElementById("winScreen");
@@ -22,6 +23,7 @@ const products = [
 ];
 
 function startGame(difficulty) {
+    startMenu.style.display = "none"; // 開始遊戲時隱藏按鈕
     currentDifficulty = difficulty;
     total = 0;
     updateTotal();
@@ -42,24 +44,6 @@ function startGame(difficulty) {
         moveItem(item);
     }
 }
-
-// function createItem() {
-//     const product = products[Math.floor(Math.random() * products.length)];
-//     const el = document.createElement("div");
-//     el.className = "item";
-//     el.innerText = `${product.icon} $${product.price}`;
-//     el.style.top = `${Math.random() * 80 + 10}%`;
-//     el.style.left = `${Math.random() * 80 + 10}%`;
-//
-//     el.onclick = () => {
-//         total += product.price;
-//         updateTotal();
-//         el.remove(); // 被點過就消失
-//         checkWin();
-//     };
-//
-//     return { el, dx: randSpeed(), dy: randSpeed() };
-// }
 
 function createItem() {
     const product = products[Math.floor(Math.random() * products.length)];
@@ -132,6 +116,7 @@ function updateTotal() {
 function checkWin() {
     if (total >= goal) {
         winScreen.style.display = "flex";
+        startMenu.style.display = "block"; // 遊戲結束時顯示按鈕
 
         const nextBtn = document.getElementById("nextBtn");
         const buttonGroup = document.getElementById("buttonGroup");
