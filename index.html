@@ -10,7 +10,7 @@
 
 <h1 class="title">404</h1>
 <p class="subtitle">正在努力<br>把網頁加回購物車中...</p>
-
+<div id="timer" style="font-size: 22px; margin-top: 10px; display: none;">剩餘時間：30</div>
 <div class="game-area" id="gameArea">
     <!-- 商品會在這裡亂飄 -->
 </div>
@@ -26,18 +26,20 @@
     <button onclick="startGame('hard')">困難</button>
 </div>
 
-<!--<div class="win-screen" id="winScreen" style="display:none;">-->
-<!--    <h2>🎉 你已成功免運！</h2>-->
-<!--    <p>回首頁繼續血拚吧～</p>-->
-<!--    <button onclick="location.href='index.html'">👉 回首頁</button>-->
-<!--</div>-->
-
 <div class="win-screen" id="winScreen" style="display:none;">
     <h2>🎉 你已成功免運！</h2>
     <p>回首頁繼續買買買吧～</p>
     <div id="buttonGroup">
         <button onclick="location.href='index.html'">👉 回首頁</button>
         <button id="nextBtn" onclick="">🔁 下一關</button>
+    </div>
+</div>
+
+<div class="fail-screen" id="failScreen" style="display:none;">
+    <h2>弱欸，我阿嬤都比你強<br>滿49免運!</h2>
+    <div id="failButtonGroup">
+        <button onclick="window.location.href='https://www.youtube.com/watch?v=7Xdfi3qkPEw'">緩解生氣</button>
+        <button id="retryBtn">再玩一次</button>
     </div>
 </div>
 

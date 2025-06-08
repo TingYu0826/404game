@@ -4,12 +4,16 @@ const totalDisplay = document.getElementById("total");
 const winScreen = document.getElementById("winScreen");
 
 let total = 0;
+let timer = null;
+let timeLeft = 30;
+const timerDisplay = document.getElementById("timer");
+const failScreen = document.getElementById("failScreen");
+const retryBtn = document.getElementById("retryBtn");
 let speed = 1;
 let items = [];
 const goal = 49;
 
 let currentDifficulty = "";
-
 
 // 模擬商品 emoji + 隨機價格
 const products = [
@@ -35,6 +39,21 @@ function startGame(difficulty) {
         medium: 2,
         hard: 4,
     }[difficulty];
+
+    // 顯示計時器
+    timeLeft = 30;
+    timerDisplay.innerText = `剩餘時間：${timeLeft}秒`;
+    timerDisplay.style.display = "block";
+    if (timer) clearInterval(timer);
+    timer = setInterval(() => {
+        timeLeft--;
+        timerDisplay.innerText = `剩餘時間：${timeLeft}秒`;
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            timerDisplay.style.display = "none";
+            showFailScreen();
+        }
+    }, 1000);
 
     // 隨機生成多個商品
     for (let i = 0; i < 10; i++) {
@@ -107,15 +126,11 @@ function updateTotal() {
     totalDisplay.innerText = `目前金額：$${total}`;
 }
 
-// function checkWin() {
-//     if (total >= goal) {
-//         winScreen.style.display = "flex";
-//     }
-// }
-
 function checkWin() {
     if (total >= goal) {
         winScreen.style.display = "flex";
+        timerDisplay.style.display = "none";
+        if (timer) clearInterval(timer);
         startMenu.style.display = "block"; // 遊戲結束時顯示按鈕
 
         const nextBtn = document.getElementById("nextBtn");
@@ -147,3 +162,14 @@ function checkWin() {
         }
     }
 }
+
+function showFailScreen() {
+    failScreen.style.display = "flex";
+    startMenu.style.display = "block";
+    gameArea.innerHTML = "";
+}
+
+retryBtn.onclick = function() {
+    failScreen.style.display = "none";
+    startGame(currentDifficulty);
+};

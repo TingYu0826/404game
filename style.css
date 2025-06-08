@@ -92,7 +92,30 @@ body {
     font-size: 20px;
     padding: 10px 20px;
     cursor: pointer;
-}.title {
+}
+
+.fail-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+.fail-screen button {
+    margin: 10px 20px 0 0;
+    font-size: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.title {
     font-size: 64px;
     margin-top: 140px; /* 原本是80px，往下移 */
     margin-bottom: 0;
@@ -107,4 +130,16 @@ body {
 
 .start-menu {
     margin-top: 40px;   /* 新增，讓按鈕往下移 */
+}
+
+#timer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 340px; /* 可微調，讓它在副標題和購物車正中間 */
+    font-size: 64px;
+    color: red;
+    font-weight: bold;
+    display: none;
+    z-index: 10;
 }
