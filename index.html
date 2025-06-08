@@ -26,10 +26,19 @@
     <button onclick="startGame('hard')">困難</button>
 </div>
 
+<!--<div class="win-screen" id="winScreen" style="display:none;">-->
+<!--    <h2>🎉 你已成功免運！</h2>-->
+<!--    <p>回首頁繼續血拚吧～</p>-->
+<!--    <button onclick="location.href='index.html'">👉 回首頁</button>-->
+<!--</div>-->
+
 <div class="win-screen" id="winScreen" style="display:none;">
     <h2>🎉 你已成功免運！</h2>
-    <p>回首頁繼續血拚吧～</p>
-    <button onclick="location.href='index.html'">👉 回首頁</button>
+    <p>回首頁繼續買買買吧～</p>
+    <div id="buttonGroup">
+        <button onclick="location.href='index.html'">👉 回首頁</button>
+        <button id="nextBtn" onclick="">🔁 下一關</button>
+    </div>
 </div>
 
 <script src="game.js"></script>
