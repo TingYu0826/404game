@@ -68,12 +68,26 @@ function randSpeed() {
 
 function moveItem(item) {
     const move = () => {
-        const rect = item.el.getBoundingClientRect();
         let top = item.el.offsetTop + item.dy;
         let left = item.el.offsetLeft + item.dx;
 
-        if (top < 0 || top > window.innerHeight - 40) item.dy *= -1;
-        if (left < 0 || left > window.innerWidth - 100) item.dx *= -1;
+        // 上下邊界
+        if (top < 0) {
+            top = 0;
+            item.dy *= -1;
+        } else if (top > window.innerHeight - 40) {
+            top = window.innerHeight - 40;
+            item.dy *= -1;
+        }
+
+        // 左右邊界
+        if (left < 0) {
+            left = 0;
+            item.dx *= -1;
+        } else if (left > window.innerWidth - 100) {
+            left = window.innerWidth - 100;
+            item.dx *= -1;
+        }
 
         item.el.style.top = `${top}px`;
         item.el.style.left = `${left}px`;
