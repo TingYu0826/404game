@@ -17,13 +17,16 @@ let currentDifficulty = "";
 
 // 模擬商品 emoji + 隨機價格
 const products = [
-    { icon: "🍔", price: 9 },
-    { icon: "🥤", price: 10 },
-    { icon: "🍟", price: 8 },
-    { icon: "🍩", price: 12 },
-    { icon: "🧁", price: 7 },
-    { icon: "🍙", price: 11 },
-    { icon: "🍕", price: 13 },
+    { icon: "💄", price: 9 },
+    { icon: "👗", price: 10 },
+    { icon: "👠", price: 8 },
+    { icon: "👙", price: 12 },
+    { icon: "💍", price: 7 },
+    { icon: "👜", price: 11 },
+    { icon: "🕶️", price: 4 },
+    { icon: "👒", price: 5 },
+    { icon: "💅", price: 6 },
+    { icon: "🥨", price: 3 },
 ];
 
 function startGame(difficulty) {

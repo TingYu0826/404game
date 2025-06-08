@@ -143,6 +143,15 @@ body {
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     letter-spacing: 4px;
+    animation: flashBackground 0.5s ease-in-out infinite;
+}
+@keyframes flashBackground {
+    0%, 100% {
+        background-color: rgba(245, 67, 68, 0.2);
+    }
+    50% {
+        background-color: rgba(245, 67, 68, 0.35); /* 中間閃一下 */
+    }
 }
 
 .subtitle {
