@@ -43,6 +43,24 @@ function startGame(difficulty) {
     }
 }
 
+// function createItem() {
+//     const product = products[Math.floor(Math.random() * products.length)];
+//     const el = document.createElement("div");
+//     el.className = "item";
+//     el.innerText = `${product.icon} $${product.price}`;
+//     el.style.top = `${Math.random() * 80 + 10}%`;
+//     el.style.left = `${Math.random() * 80 + 10}%`;
+//
+//     el.onclick = () => {
+//         total += product.price;
+//         updateTotal();
+//         el.remove(); // 被點過就消失
+//         checkWin();
+//     };
+//
+//     return { el, dx: randSpeed(), dy: randSpeed() };
+// }
+
 function createItem() {
     const product = products[Math.floor(Math.random() * products.length)];
     const el = document.createElement("div");
@@ -54,11 +72,15 @@ function createItem() {
     el.onclick = () => {
         total += product.price;
         updateTotal();
-        el.remove(); // 被點過就消失
+        el.remove();
         checkWin();
     };
 
-    return { el, dx: randSpeed(), dy: randSpeed() };
+    // 固定速度，隨機方向
+    const dx = Math.random() < 0.5 ? speed : -speed;
+    const dy = Math.random() < 0.5 ? speed : -speed;
+
+    return { el, dx, dy };
 }
 
 function randSpeed() {

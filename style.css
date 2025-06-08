@@ -61,7 +61,7 @@ body {
     position: absolute;
     cursor: pointer;
     font-size: 24px;
-    transition: transform 0.3s;
+    /*transition: transform 0.3s;*/
 }
 
 .item:hover {
