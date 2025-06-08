@@ -183,7 +183,7 @@ function checkWin() {
         // 中等 → 困難
         else if (currentDifficulty === "medium") {
             nextBtn.style.display = "inline-block";
-            nextBtn.innerText = "挑戰困難模式";
+            nextBtn.innerText = "挑戰地獄級難度!";
             nextBtn.onclick = () => {
                 winScreen.style.display = "none";
                 startGame("hard");
