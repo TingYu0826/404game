@@ -1,3 +1,5 @@
+let scoresPerLevel = [];
+let lastScore = 0;
 const startMenu = document.querySelector('.start-menu');
 const gameArea = document.getElementById("gameArea");
 const totalDisplay = document.getElementById("total");
@@ -195,36 +197,36 @@ function updateTotal() {
 
 function checkWin() {
     if (total >= goal) {
+        scoresPerLevel.push(total);
+        lastScore = total;
+        sendScore();
+
+        // ✅ 顯示過關畫面與按鈕
         winScreen.style.display = "flex";
         timerDisplay.style.display = "none";
         if (timer) clearInterval(timer);
-        startMenu.style.display = "block"; // 遊戲結束時顯示按鈕
+        startMenu.style.display = "block";
 
         const nextBtn = document.getElementById("nextBtn");
-        const buttonGroup = document.getElementById("buttonGroup");
 
-        // 簡單 → 中等
         if (currentDifficulty === "easy") {
             nextBtn.style.display = "inline-block";
             nextBtn.innerText = "挑戰中等模式";
             nextBtn.onclick = () => {
+                total = 0;                      // ✅ 開始下一關前重設分數
                 winScreen.style.display = "none";
                 startGame("medium");
             };
-        }
-
-        // 中等 → 困難
-        else if (currentDifficulty === "medium") {
+        } else if (currentDifficulty === "medium") {
             nextBtn.style.display = "inline-block";
             nextBtn.innerText = "挑戰地獄級難度!";
             nextBtn.onclick = () => {
+                total = 0;
                 winScreen.style.display = "none";
                 startGame("hard");
             };
-        }
-
-        // 困難 → 不顯示下一關
-        else {
+        } else {
+            // 地獄級最後一關 → 不顯示下一關按鈕
             nextBtn.style.display = "none";
         }
     }
@@ -235,9 +237,39 @@ function showFailScreen() {
     failScreen.style.display = "flex";
     startMenu.style.display = "block";
     gameArea.innerHTML = "";
+    scoresPerLevel.push(total); // 新增這行
+    sendScore();
+} // ← 補上這個大括號，正確結束 showFailScreen
+
+function sendScore() {
+    // 將 scoresPerLevel 轉成物件陣列
+    const records = scoresPerLevel.map((score, idx) => ({
+        score,
+        level: idx + 1
+    }));
+
+    fetch('http://localhost:3000/api/save-score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            nickname: '匿名玩家',
+            records
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                console.log('✅ 多筆關卡分數儲存成功');
+            } else {
+                console.log('❌ 儲存失敗');
+            }
+        })
+        .catch(err => console.error('❌ 錯誤:', err));
 }
+
 
 retryBtn.onclick = function() {
     failScreen.style.display = "none";
     startGame(currentDifficulty);
 };
+
