@@ -17,7 +17,6 @@ const goal = 49;
 
 let currentDifficulty = "";
 
-// 模擬商品 emoji + 隨機價格
 const products = [
     { icon: "💄", price: 9 },
     { icon: "👗", price: 10 },
