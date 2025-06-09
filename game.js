@@ -94,10 +94,31 @@ function createItem() {
         document.body.style.cursor = "grabbing";
     };
 
+    // 新增拖曳時購物車放大效果
+    let lastOverCart = false;
     document.addEventListener("mousemove", (e) => {
         if (dragging) {
             el.style.top = `${e.clientY - offsetY}px`;
             el.style.left = `${e.clientX - offsetX}px`;
+            // 判斷滑鼠是否在購物車範圍
+            const cart = document.querySelector(".cart");
+            const cartRect = cart.getBoundingClientRect();
+            if (
+                e.clientX > cartRect.left &&
+                e.clientX < cartRect.right &&
+                e.clientY > cartRect.top &&
+                e.clientY < cartRect.bottom
+            ) {
+                if (!lastOverCart) {
+                    cart.classList.add("cart-hover");
+                    lastOverCart = true;
+                }
+            } else {
+                if (lastOverCart) {
+                    cart.classList.remove("cart-hover");
+                    lastOverCart = false;
+                }
+            }
         }
     });
 
@@ -106,8 +127,11 @@ function createItem() {
             dragging = false;
             el.style.zIndex = "";
             document.body.style.cursor = "";
-            // 判斷是否進入購物車
+            // 拖曳結束時恢復購物車原狀
             const cart = document.querySelector(".cart");
+            cart.classList.remove("cart-hover");
+            lastOverCart = false;
+            // 判斷是否進入購物車
             const cartRect = cart.getBoundingClientRect();
             const elRect = el.getBoundingClientRect();
             if (

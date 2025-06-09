@@ -59,6 +59,11 @@ body {
     width: 80px;
 }
 
+.cart.cart-hover {
+    transform: scale(1.2);
+    transition: transform 0.2s;
+}
+
 #total {
     font-size: 20px;
     margin-top: 10px;
@@ -184,3 +189,4 @@ body {
     height: auto;
     display: block;
 }
+
